@@ -12,6 +12,8 @@ import React, { Component } from 'react';
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoFrom from "./components/TodoComponents/TodoForm";
 
+
+
 // class App extends React.Component {
 //   // you will need a place to store your state in this component.
 //   // design `App` to be the parent component of your application.
@@ -79,7 +81,7 @@ class App extends Component {
       } else {
         return finishedTodo;
       }
-      this.setState({ prevTodos });
+      // this.setState({ prevTodos });
     });
   };
   //  pass 'todos' as props to TodoList component
