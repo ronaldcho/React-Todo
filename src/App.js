@@ -1,13 +1,101 @@
-import React from 'react';
 
-class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
+/* ########################################################################
+
+<App /> will hold all the data needed for this project. It will also be 
+the container for your Todo Components.
+  All of your application data will be stored here on <App />.
+  All of your handler functions should live here on <App />.
+
+###########################################################################
+*/
+import React, { Component } from 'react';
+import TodoList from "./components/TodoComponents/TodoList";
+import TodoFrom from "./components/TodoComponents/TodoForm";
+
+// class App extends React.Component {
+//   // you will need a place to store your state in this component.
+//   // design `App` to be the parent component of your application.
+//   // this component is going to take care of state, and any change handlers you need to work with your state
+//   render() {
+//     return (
+//       <div>
+//         <h2>Welcome to your Todo App!</h2>
+//       </div>
+//     );
+//   }
+// }
+
+// export default App;
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      todos: [
+        {
+          task: "Organize Garage",
+          id: 1528817077286,
+          completed: false
+        },
+        {
+          task: "Bake Cookies",
+          id: 1528817084358,
+          completed: false
+        },
+        {
+          task: "Write Todo App",
+          id: 1528817094358,
+          completed: false
+        }
+      ],
+      todo: ""
+    };
+  }
+
+  // create new Todo list and pass as props 'createTodo'
+  // in TodoFrom component
+  createNewTodo = (text /*string*/) => {
+    const newTodo = {
+      task: text,
+      id: Date.now(),
+      completed: false
+    };
+
+    this.setState(prevState => {
+      console.log("prevState context: ", this.state.todos);
+      const oldTodos = this.state.todos.slice();
+      console.log("prevState after using slice: ", oldTodos);
+      oldTodos.push(newTodo);
+      return { todos: oldTodos };
+    });
+  };
+
+  toggleTodoComplete = todoId => {
+    let prevTodos = this.state.todos.slice();
+    prevTodos = prevTodos.map(finishedTodo => {
+      if (finishedTodo.id === todoId) {
+        finishedTodo.completed = !finishedTodo.completed;
+        return finishedTodo;
+      } else {
+        return finishedTodo;
+      }
+      this.setState({ prevTodos });
+    });
+  };
+  //  pass 'todos' as props to TodoList component
+  // pass 'createTodo' as props to TodoFrom component as method
   render() {
     return (
       <div>
-        <h2>Welcome to your Todo App!</h2>
+        <h2>Welcome to Todo App</h2>
+        <TodoList
+          handleToggleComplete={this.toggleTodoComplete}
+          todos={this.state.todos}
+        />
+        <TodoFrom
+          value={this.state.finishedTodo}
+          createTodo={this.createNewTodo}
+        />
       </div>
     );
   }
