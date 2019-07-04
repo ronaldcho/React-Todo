@@ -57,33 +57,74 @@ class App extends Component {
   // create new Todo list and pass as props 'createTodo'
   // in TodoFrom component
   createNewTodo = (text /*string*/) => {
+    // text.preventDefault();
     const newTodo = {
       task: text,
       id: Date.now(),
       completed: false
     };
 
+
     this.setState(prevState => {
-      console.log("prevState context: ", this.state.todos);
+      console.log("App.js prevState context: ", this.state.todos);
       const oldTodos = this.state.todos.slice();
-      console.log("prevState after using slice: ", oldTodos);
+      console.log("App.js prevState after using slice: ", oldTodos);
       oldTodos.push(newTodo);
+      console.log("App.js prevState after using slice: ", oldTodos);
       return { todos: oldTodos };
+
     });
   };
 
+
+  // look through todoList and find the todo I clicked on
+  // toggle the completed statu for that todo
+  // toggleTodoComplete = todoId => {
+  //   this.setState({
+  //   //   todosList: this.state.todoList.map((todo, idx) => {
+  //   //     if (todoId !== idx){
+  //   //       return todo;
+  //   //     } else {
+  //   //       // updated complete status 
+  //   //       // return{
+  //   //         // ...todo,
+  //   //         todo.completed = !todo.completed;
+  //   //         return todosList;
+  //   //     }
+  //   //   }) // end arrow function
+  //   // }); // end this setState
+
+  //     let prevTodos = this.state.todos.slice();
+  //     prevTodos = prevState.map(finishedTodo => {
+  //         if (finishedTodo.id === todoId) {
+  //           finishedTodo.completed = !finishedTodo.completed;
+  //           return prevTodos;
+  //         } else {
+  //           return finishedTodo;
+  //         }
+  //       }); // end arrow function
+  //     // console.log('toggleTodoComplete prevTodos content: ', prevTodos);
+  //     // console.log('toggleTodoComplete/ finishedTodo context :', finishedTodo);
+  //     // this.setState({ prevTodos });
+  //   // }); // end of setState
+  //   // console.log('toggleTodoComplete prevTodos content: ', prevTodos);
+  // }; // end toggleTodoComplete
+
+
+  
   toggleTodoComplete = todoId => {
     let prevTodos = this.state.todos.slice();
     prevTodos = prevTodos.map(finishedTodo => {
       if (finishedTodo.id === todoId) {
         finishedTodo.completed = !finishedTodo.completed;
-        return finishedTodo;
+        return prevTodos;
       } else {
         return finishedTodo;
       }
       // this.setState({ prevTodos });
     });
   };
+
   //  pass 'todos' as props to TodoList component
   // pass 'createTodo' as props to TodoFrom component as method
   render() {
